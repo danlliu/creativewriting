@@ -83,6 +83,28 @@
                     <li><samp>must</samp>: pops two elements from the stack, and pushes the larger of the two onto
                         the stack</li>
                 </ul>
+                <h4>Control Flow:</h4>
+                <p>creative writing uses the beginning of each paragraph as a branch location. start a new paragraph
+                by putting a newline into the text. the following control flow statements are available:</p>
+                <ul>
+                    <li><samp>go</samp>: jumps to the paragraph number on the top of the stack, and pops the stack</li>
+                    <li><samp>go back</samp>: stores the next paragraph number into register 7 (<samp>been</samp>),
+                        jumps to the paragraph number on the top of the stack, and pops the stack</li>
+                    <li><samp>if...go</samp>: conditional branch. the target address is initially at the top of the
+                    stack. after popping the target address, if the top two elements are equal, then branch to the
+                        target paragraph. three elements are popped from the stack during this instruction (target
+                        address and two elements to compare)</li>
+                    <li><samp>if...go back</samp>: conditional branch. performs the same actions as
+                        <samp>if...go</samp>, but also stores the next paragraph number into register 7
+                        (<samp>been</samp>)</li>
+                </ul>
+                <h4>Other Keywords:</h4>
+                <p>creative writing also has other keywords that make the generation of true writing more manageable.
+                    the keywords <code>to</code> and <code>the</code> marks the next keyword encountered as unused.
+                    when <code>the</code> is found after the keyword <code>after</code> (e.g. <code>after
+                        the</code>), the <code>the</code> is ignored and the word after <code>the</code> is used in
+                    the letter count for <code>after</code>.
+                </p>
             </div>
         </div>
     </div>
