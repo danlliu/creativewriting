@@ -10,27 +10,36 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/bootstrap.esm.js"></script>
     <script src="js/bootstrap.js"></script>
+    <script src="js/main.js"></script>
 </head>
 <body>
 <div class="container-fluid">
     <div class="container-fluid">
         <!-- header -->
         <h1>creative writing: a language</h1>
-        <hr/>
     </div>
-    <div class="container-fluid">
-        <div class="container-fluid mb-3">
+    <div class="container-fluid mt-1">
+        <div class="container-fluid"><samp>program output:</samp></div>
+        <div class="container-fluid mb-1">
             <!-- output -->
-            <samp>Program output:</samp>
-            <div class="container-fluid" style="background-color: #1b1e21; border-radius: 4px">
-                <samp style="color: white" id="output">just a placeholder <br>plan to replace soon</samp>
+            <div class="container-fluid" style="background-color: #16161d; border-radius: 4px;
+            overflow-y: scroll; height: 80px">
+                <samp style="color: white" id="output">just a placeholder <br>plan to replace
+                    soon<br>wow
+                    much text<br>more text<br>even more text<br>will this ever stop scroll down to find
+                    out<br>you must construct additional pylons<br>spawwwwn moaaaar overlooords</samp>
             </div>
+        </div>
+        <div class="container-fluid mt-1 mb-1 justify-content-start">
+            <button onclick="run()" class="btn btn-success" style="margin: 0 auto">run program</button>
         </div>
         <div class="row">
             <div class="col">
-                <textarea rows="45" style="width: 100%; line-height: 11px; font-family: monospace;"></textarea>
+                <textarea rows="44"
+                          style="width: 100%; line-height: 11px; font-family: monospace; resize: none"
+                          placeholder="type your program here"></textarea>
             </div>
-            <div class="col" style="max-height: 500px; overflow-y: scroll">
+            <div class="col" style="max-height: 484px; overflow-y: scroll">
                 <h3>Documentation:</h3>
                 <p>creative writing is a stack-based ISA where common words are used as part of instructions. You
                     are highly encouraged, although it is not necessary, to write your programs as short stories :)</p>
