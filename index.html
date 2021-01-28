@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="css/bootstrap-utilities.css">
+    <script src="js/bootstrap.bundle.js"></script>
+    <script src="js/bootstrap.esm.js"></script>
+    <script src="js/bootstrap.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="container-fluid">
+        <!-- header -->
+        <h1>creative writing: a language</h1>
+        <hr/>
+    </div>
+    <div class="container-fluid">
+        <div class="container-fluid mb-3">
+            <!-- output -->
+            <samp>Program output:</samp>
+            <div class="container-fluid" style="background-color: #1b1e21; border-radius: 4px">
+                <samp style="color: white" id="output">hello</samp>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <textarea rows="45" style="width: 100%; line-height: 11px; font-family: monospace;"></textarea>
+            </div>
+            <div class="col" style="max-height: 500px; overflow-y: scroll">
+                <h3>Documentation:</h3>
+                <p>creative writing is a stack-based ISA where common words are used as part of instructions. You
+                    are highly encouraged, although it is not necessary, to write your programs as short stories :)</p>
+                <h4>Registers</h4>
+                <p>creative writing has 8 registers, which can be accessed using the following <b>register words</b>:
+                </p>
+                <ul>
+                    <li>r0: <samp>am</samp> or <samp>I'm</samp></li>
+                    <li>r1: <samp>be</samp>
+                    <li>r2: <samp>are</samp>, <samp>you're</samp>, <samp>we're</samp>, or <samp>they're</samp></li>
+                    <li>r3: <samp>is</samp>, <samp>he's</samp>, <samp>she's</samp>, or <samp>it's</samp></li>
+                    <li>r4: <samp>was</samp>
+                    <li>r5: <samp>were</samp>
+                    <li>r6: <samp>being</samp>
+                    <li>r7: <samp>been</samp>
+                </ul>
+                <h4>Stack Manipulation:</h4>
+                <p>there are six core operations to the stack in creative writing:</p>
+                <ul>
+                    <li><samp>took...[reg]</samp> or <samp>take...[reg]</samp>: stores the top of the stack to the
+                        specified register and pops the top of the stack. if a register word is not directly
+                        after <samp>took</samp> or <samp>take</samp>, as is common, all words in between will be
+                        ignored until a register word is encountered</li>
+                    <li><samp>gave...[reg]</samp> or <samp>give...[reg]</samp>: pushes the value in the specified
+                        register to the stack. if a register word is not directly after <samp>gave</samp> or
+                        <samp>give</samp>, as is common, all words in between will be ignored until a register word
+                        is encountered</li>
+                    <li><samp>use</samp>, <samp>using</samp>, or <samp>used</samp>: pops a value off the stack.
+                        this value is gone forever!</li>
+                    <li><samp>none</samp>: pushes 0 to the stack</li>
+                    <li><samp>after [word]</samp>: pushes the number of characters in the word immediately
+                        following the <samp>after</samp> keyword to the stack. for example,
+                        <code>after foo</code> pushes the value <code>3</code> to the stack</li>
+                    <li><samp>like</samp>: gets the value from the top of the stack and pushes it again onto the
+                        stack.</li>
+                </ul>
+                <h4>Stack Operations:</h4>
+                <p>there are a wide variety of stack operations that can be performed on the values in the stack:</p>
+                <ul>
+                    <li><samp>these</samp>: pops two elements from the stack, adds them, and pushes the sum onto
+                        the stack</li>
+                    <li><samp>no</samp>: pops an element from the stack, negates it (to its additive inverse), and
+                        pushes it to the stack</li>
+                    <li><samp>all</samp>: pops two elements from the stack, takes their bitwise AND, and pushes the
+                    result onto the stack</li>
+                    <li><samp>any</samp>: pops two elements from the stack, takes their bitwise OR, and pushes the
+                        result onto the stack</li>
+                    <li><samp>not</samp>: pops two elements from the stack, takes their bitwise complement, and
+                        pushes the result onto the stack</li>
+                    <li><samp>must</samp>: pops two elements from the stack, and pushes the larger of the two onto
+                        the stack</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
