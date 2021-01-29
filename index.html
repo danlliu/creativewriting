@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-grid.css">
-    <link rel="stylesheet" href="css/bootstrap-reboot.css">
-    <link rel="stylesheet" href="css/bootstrap-utilities.css">
-    <script src="js/bootstrap.bundle.js"></script>
-    <script src="js/bootstrap.esm.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/main.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>creative writing</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"
 </head>
-<body>
+<body style="overflow-y: hidden">
 <div class="container-fluid">
     <div class="container-fluid">
         <!-- header -->
@@ -24,20 +21,26 @@
             <!-- output -->
             <div class="container-fluid" style="background-color: #16161d; border-radius: 4px;
             overflow-y: scroll; height: 80px">
-                <samp style="color: white" id="output">just a placeholder <br>plan to replace
-                    soon<br>wow
-                    much text<br>more text<br>even more text<br>will this ever stop scroll down to find
-                    out<br>you must construct additional pylons<br>spawwwwn moaaaar overlooords</samp>
+                <samp style="color: white" id="output"></samp>
             </div>
         </div>
         <div class="container-fluid mt-1 mb-1 justify-content-start">
             <button onclick="run()" class="btn btn-success" style="margin: 0 auto">run program</button>
+            <button onclick="show_debug()" class="btn btn-warning" style="margin: 0 auto" id="sh_dbg">debug
+                mode</button>
+            <button onclick="hide_debug()" class="btn btn-warning" style="margin: 0 auto" id="hd_dbg" hidden>edit
+                mode</button>
         </div>
         <div class="row">
             <div class="col">
                 <textarea rows="44"
                           style="width: 100%; line-height: 11px; font-family: monospace; resize: none"
-                          placeholder="type your program here"></textarea>
+                          placeholder="type your program here" id="program"></textarea>
+                <p style="width: 100%; height: 490px; padding: 2px; line-height: 11px; color: #000;
+                border:
+                1px solid
+                #767676;
+                border-radius: 2px; font-family:monospace" hidden id="debug"></p>
             </div>
             <div class="col" style="max-height: 484px; overflow-y: scroll">
                 <h3>Documentation:</h3>
@@ -102,7 +105,9 @@
                     <li><samp>if...go</samp>: conditional branch. the target address is initially at the top of the
                     stack. after popping the target address, if the top two elements are equal, then branch to the
                         target paragraph. three elements are popped from the stack during this instruction (target
-                        address and two elements to compare)</li>
+                        address and two elements to compare). if the <code>if</code> keyword is not immediately
+                        followed by <code>go</code>, all words between <code>if</code> and the following
+                        <code>go</code> are ignored.</li>
                     <li><samp>if...go back</samp>: conditional branch. performs the same actions as
                         <samp>if...go</samp>, but also stores the next paragraph number into register 7
                         (<samp>been</samp>)</li>
@@ -118,12 +123,15 @@
                     the keywords <code>to</code> and <code>the</code> marks the next keyword encountered as unused.
                     when <code>the</code> is found after the keyword <code>after</code> (e.g. <code>after
                         the</code>), the <code>the</code> is ignored and the word after <code>the</code> is used in
-                    the letter count for <code>after</code>.
+                    the letter count for <code>after</code>. The keywords <code>other</code> and <code>over</code>
+                    both signify to creative writing to ignore the remainder of that paragraph.
                 </p>
             </div>
         </div>
     </div>
-
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
