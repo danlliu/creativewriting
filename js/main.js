@@ -4,7 +4,7 @@ let text_field = document.getElementById('program');
 let debug_text = document.getElementById('debug');
 
 const KEYWORDS = [
-    "to", "the", "after",
+    "the", "after",
     "am", "i'm", "be", "are", "you're", "we're", "they're", "is", "he's", "she's", "it's", "was", "were", "being", "been",
     "took", "take", "gave", "give", "these", "no", "out", "say", "any", "not", "all", "after", "use", "using", "used",
     "none", "must", "like", "go", "back", "if", "other", "over"
@@ -33,6 +33,126 @@ function show_debug() {
     document.getElementById('sh_dbg').setAttribute('hidden', 'hehe');
 
     // sTyLiStIc tExT
+    let text = text_field.value;
+    let paragraphs = text.split(/\n+/);
+
+    let dt = "";
+
+    for (let paragraph of paragraphs) {
+        let words = paragraph.split(/[^A-Za-z']+/);
+        words = words.filter(x => x !== '');
+        let wi = 0;
+        let separators = paragraph.split(/[A-Za-z']+/);
+        separators = separators.filter(x => x !== '');
+        let si = 0;
+        let turn = words.length < separators.length ? 1 : 0;
+        let state = "none";
+
+        while (wi < words.length || si < separators.length) {
+
+            if (turn === 0) {
+                // words
+                word = words[wi];
+                if (state === "none") {
+                    // check keyword
+                    if (KEYWORDS.includes(word.toLowerCase())) {
+                        // keyword!
+                        if (word.toLowerCase() === "took" || word.toLowerCase() === "take") {
+                            dt += `<span style="font-weight: bolder; color: #70F">${word}</span>`;
+                            state = "take";
+                        } else if (word.toLowerCase() === "gave" || word.toLowerCase() === "give") {
+                            dt += `<span style="font-weight: bolder; color: #07F">${word}</span>`;
+                            state = "give";
+                        } else if (word.toLowerCase() === "after") {
+                            dt += `<span style="font-weight: bolder; color: #F33">${word}</span>`;
+                            state = "after";
+                        } else if (word.toLowerCase() === "the") {
+                            dt += `<span style="font-weight: bolder; color: #888">${word}</span>`;
+                            state = "the";
+                        } else if (word.toLowerCase() === "other" || word.toLowerCase() === "over") {
+                            dt += `<span style="font-weight: bolder; color: #888">${word}</span>`;
+                            state = "over";
+                        } else if (word.toLowerCase() === "if") {
+                            dt += `<span style="font-weight: bolder; color: #963">${word}</span>`;
+                            state = "if";
+                        } else if (word.toLowerCase() === "go") {
+                            dt += `<span style="font-weight: bolder; color: #963">${word}</span>`;
+                            if (words[wi + 1] === "back") {
+                                state = "back";
+                            } else {
+                                state = "none";
+                            }
+                        } else if (REGISTERS.includes(word.toLowerCase())) {
+                            dt += `<span style="font-weight: bold; color: #F0F">${word}</span>`;
+                        } else {
+                            dt += `<span style="font-weight: bolder; color: #F70">${word}</span>`;
+                        }
+                    } else {
+                        dt += `${word}`;
+                    }
+                } else if (state === "take") {
+                    if (REGISTERS.includes(word.toLowerCase())) {
+                        dt += `<span style="font-weight: bolder; color: #70F">${word}</span>`;
+                        state = "none";
+                    } else {
+                        dt += `${word}`;
+                    }
+                } else if (state === "give") {
+                    if (REGISTERS.includes(word.toLowerCase())) {
+                        dt += `<span style="font-weight: bolder; color: #07F">${word}</span>`;
+                        state = "none";
+                    } else {
+                        dt += `${word}`;
+                    }
+                } else if (state === "after") {
+                    if (word.toLowerCase() === "the") {
+                        dt += `<span style="font-weight: bold; color: #0C3">${word}</span>`;
+                        state = "after the";
+                    } else {
+                        dt += `<span style="font-weight: bolder; color: #F33">${word}</span>`;
+                        state = "none";
+                    }
+                } else if (state === "after the") {
+                    dt += `<span style="font-weight: bolder; color: #F33">${word}</span>`;
+                    state = "none";
+                } else if (state === "if") {
+                    if (word.toLowerCase() === "go") {
+                        dt += `<span style="font-weight: bolder; color: #963">${word}</span>`;
+                        if (words[wi + 1] === "back") {
+                            state = "back";
+                        } else {
+                            state = "none";
+                        }
+                    } else {
+                        dt += `${word}`;
+                    }
+                } else if (state === "back") {
+                    dt += `<span style="font-weight: bolder; color: #963">${word}</span>`;
+                    state = "none";
+                } else if (state === "the") {
+                    if (KEYWORDS.includes(word.toLowerCase())) {
+                        dt += `<span style="font-weight: bolder; color: #888">${word}</span>`;
+                        state = "none";
+                    } else {
+                        dt += `${word}`;
+                    }
+                } else {
+                    // over
+                    dt += `<span style="font-weight: bolder; color: #888">${word}</span>`;
+                }
+                wi += 1;
+                turn = 1;
+            } else {
+                dt += `${separators[si]}`;
+                si += 1;
+                turn = 0;
+            }
+        }
+        dt += `<br><br>`;
+    }
+
+    debug_text.innerHTML = dt;
+
 }
 
 function run() {
@@ -43,24 +163,22 @@ function run() {
     output_err = false;
 
     let text = text_field.value.toLowerCase();
-    text.replace(/[^A-Za-z']/gi);
-    let paragraphs = text.split(/[\n]+/);
+    text.replace(/\s+/gi, ' ');
+    text = text.replace(/[^A-Za-z' \n]/gi, '');
+
+    let paragraphs = text.split(/\n+/);
     let words = paragraphs.map(s => s.split(" "));
     let current_paragraph = 0;
     let word_idx = 0;
-
-    console.log(words);
 
     let state = "none";
     let branch_target = 0;
 
     let steps = 0;
 
-    while (current_paragraph !== paragraphs.length && !output_err && steps <= 1000) {
-        console.log(`currpar ${current_paragraph}, currwor ${word_idx}`);
+    while (current_paragraph >= 0 && current_paragraph < paragraphs.length && !output_err && steps <= 1000) {
         let word = words[current_paragraph][word_idx];
-        console.log(state);
-        console.log(word);
+
         if (state === "skip") {
             if (KEYWORDS.includes(word)) {
                 state = "none";
@@ -117,7 +235,6 @@ function run() {
         }
         else {
             switch (word) {
-                case "to":
                 case "the":
                     state = "skip";
                     break;
@@ -231,18 +348,23 @@ function run() {
                 case "say": {
                     let top = stack.pop();
                     stack.push(top);
-                    output += `${String.fromCharCode(top)}`;
+                    output += `${String.fromCharCode(top)}` === `\n` ? `<br>` : `${String.fromCharCode(top)}`;
                 }
                     break;
             }
         }
-        console.log(stack);
-        console.log(current_paragraph);
         word_idx += 1;
         steps += 1;
+        if (current_paragraph < 0 || current_paragraph >= paragraphs.length) {
+            break;
+        }
         if (word_idx === words[current_paragraph].length) {
             word_idx = 0;
             current_paragraph += 1;
+            if (state !== "none") {
+                output_err = true;
+                output += `\nError: unterminated command in paragraph ${current_paragraph}`;
+            }
         }
     }
 
