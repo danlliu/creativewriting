@@ -176,7 +176,7 @@ function run() {
 
     let steps = 0;
 
-    while (current_paragraph >= 0 && current_paragraph < paragraphs.length && !output_err && steps <= 1000) {
+    while (current_paragraph >= 0 && current_paragraph < paragraphs.length && !output_err) {
         let word = words[current_paragraph][word_idx];
 
         if (state === "skip") {
